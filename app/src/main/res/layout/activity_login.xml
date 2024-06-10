@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity"
+    android:background="#C0C0C0">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp">
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/btnbach"
+            android:id="@+id/btnBack"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:textStyle="bold"
+            android:textSize="30dp"
+            android:textColor="#000000"
+            android:id="@+id/txtLogin"/>
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+            <ImageButton
+                android:layout_gravity="center"
+                android:layout_width="170dp"
+                android:layout_height="35dp"
+                android:id="@+id/imbLoginGG"
+                android:background="@drawable/loginwgg"/>
+            <ImageButton
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:layout_width="170dp"
+                android:layout_height="35dp"
+                android:id="@+id/imbLoginFB"
+                android:background="@drawable/loginfb"/>
+        </LinearLayout>
+        <TextView
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or log in using"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:id="@+id/txtLoginUsing"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text=""
+            android:textSize="15dp"
+            android:textColor="#FF0000"
+            android:id="@+id/texterror"
+            android:layout_gravity="center"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/edt_email"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/custom_input"
+            android:padding="15dp"
+            android:drawablePadding="15dp"
+            android:hint="Mail"
+            android:drawableStart="@drawable/ic_mail_focused"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp">
+            <EditText
+                android:paddingEnd="12dp"
+                android:paddingStart="15dp"
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/ic_lock_focused"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/edt_password"
+                android:background="@drawable/custom_input"
+                android:padding="15dp"
+                android:hint="Password"/>
+
+            <ImageButton
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/iconeye"
+                android:id="@+id/btneye"
+                android:layout_marginTop="12dp"/>
+        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#C0C0C0"
+            android:text="Forgot your password?"
+            android:id="@+id/btnForgot"
+            android:layout_marginLeft="170dp"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="#00CEC9"
+            android:text="Log in"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="100dp">
+            <TextView
+                android:layout_marginTop="14dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Don't have an account yet?"
+                android:textColor="@color/black"
+                android:textSize="15dp"
+                android:id="@+id/txtRegister"
+                android:foregroundGravity="center"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#C0C0C0"
+                android:text="Sign up"
+                android:id="@+id/btnSignUp"
+                android:textColor="@color/white"
+                android:textSize="15dp"
+                android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
