@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.navbarActivity">
@@ -43,6 +43,8 @@
                     android:id="@+id/bottomNavigationView"
                     app:labelVisibilityMode="labeled"
                     app:menu="@menu/nav_menu"
+                    app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
+                    android:backgroundTint="@color/green_500"
                     android:background="@drawable/custom_input"/>
 
 

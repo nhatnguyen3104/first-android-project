@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     private val mainTag = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         Log.d(mainTag, "OnCreate")
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         btnStart.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

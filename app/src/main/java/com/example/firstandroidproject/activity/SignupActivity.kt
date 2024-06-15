@@ -1,5 +1,6 @@
 package com.example.firstandroidproject.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -11,11 +12,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firstandroidproject.R
 import com.example.firstandroidproject.classSuport.EmployeeModel
+import com.example.firstandroidproject.databinding.ActivitySignupBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivitySignupBinding
+    private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var dbRef : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +31,12 @@ class SignupActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        binding = ActivitySignupBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val btnSignUp=findViewById<Button>(R.id.btnSignUp)
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
+        val btnLogin = findViewById<Button>(R.id.btnLogin)
 
         btnBack.setOnClickListener {
             finish()
@@ -36,8 +44,12 @@ class SignupActivity : AppCompatActivity() {
 
         dbRef = FirebaseDatabase.getInstance().getReference("Users")
         //sử lý sự kiện khi click vào Sign up
-        btnSignUp.setOnClickListener {
+        binding.btnSignUp.setOnClickListener {
             saveUserData()
+        }
+        btnLogin.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -87,4 +99,5 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
             }
     }
+
 }

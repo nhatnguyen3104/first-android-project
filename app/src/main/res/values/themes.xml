@@ -8,6 +8,6 @@
     <style name="Theme.FirstAndroidProject" parent="Base.Theme.FirstAndroidProject" />
 
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">@color/green_500</item>
+        <item name="android:color">@color/orange_200</item>
     </style>
 </resources>

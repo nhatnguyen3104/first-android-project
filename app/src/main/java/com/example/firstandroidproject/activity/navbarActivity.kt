@@ -1,24 +1,22 @@
 package com.example.firstandroidproject.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.example.firstandroidproject.R
 import com.example.firstandroidproject.fragment.CalendarFragment
 import com.example.firstandroidproject.fragment.HomeFragment
 import com.example.firstandroidproject.fragment.MapFragment
 import com.example.firstandroidproject.fragment.SearchFragment
-import com.google.android.material.navigation.NavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class navbarActivity : AppCompatActivity(){
 
-    private lateinit var fragmentManager: FragmentManager
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +28,33 @@ class navbarActivity : AppCompatActivity(){
             insets
         }
 
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    replaceFragment(HomeFragment())
+                    true
+                }
+                R.id.nav_search -> {
+                    replaceFragment(SearchFragment())
+                    true
+                }
+                R.id.nav_calendar -> {
+                    replaceFragment(CalendarFragment())
+                    true
+                }
+                R.id.nav_map -> {
+                    replaceFragment(MapFragment())
+                    true
+                }
+                else -> false
+            }
+        }
+        replaceFragment(HomeFragment())
     }
 
+    private fun replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+    }
 }
