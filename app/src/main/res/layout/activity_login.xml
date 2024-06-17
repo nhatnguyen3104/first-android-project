@@ -102,14 +102,15 @@
                 android:id="@+id/btneye"
                 android:layout_marginTop="12dp"/>
         </RelativeLayout>
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#C0C0C0"
-            android:text="Forgot your password?"
-            android:id="@+id/btnForgot"
-            android:layout_marginLeft="170dp"
-            android:textColor="@color/black"/>
+            android:id="@+id/forgot"
+            android:layout_marginTop="10dp"
+            android:text="Forgot password?"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_gravity="right"/>
 
         <Button
             android:id="@+id/btnLogin"

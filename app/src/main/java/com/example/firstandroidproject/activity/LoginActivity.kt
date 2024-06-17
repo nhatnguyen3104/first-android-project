@@ -1,18 +1,23 @@
 package com.example.firstandroidproject.activity
 
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.service.autofill.UserData
+import android.util.Patterns
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.firstandroidproject.R
 import com.example.firstandroidproject.classSuport.EmployeeModel
 import com.example.firstandroidproject.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -24,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var dbRef: DatabaseReference
     private lateinit var firebaseDatabase: FirebaseDatabase
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +44,7 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
-        firebaseDatabase = FirebaseDatabase.getInstance()
-        dbRef = firebaseDatabase.reference.child("Users")
+        firebaseAuth = FirebaseAuth.getInstance()
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
@@ -49,10 +54,9 @@ class LoginActivity : AppCompatActivity() {
             val loginMail = binding.edtMail.text.toString()
             val loginPassword = binding.edtPassword.text.toString()
 
-            if(loginMail.isNotEmpty() && loginPassword.isNotEmpty()){
-                loginUser(loginMail,loginPassword)
-            }
-            else{
+            if(loginMail.isNotEmpty() && loginPassword.isNotEmpty()) {
+                loginUser(loginMail, loginPassword)
+            } else {
                 Toast.makeText(this@LoginActivity, "Please fill all fields", Toast.LENGTH_SHORT).show()
             }
         }
@@ -61,35 +65,59 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-
         btnSignUp.setOnClickListener {
             var intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
-            finish()
+        }
+
+        binding.forgot.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            val view = layoutInflater.inflate(R.layout.dialog_forgot, null)
+            val userMail = view.findViewById<EditText>(R.id.editBox)
+
+            builder.setView(view)
+            val dialog = builder.create()
+
+            view.findViewById<Button>(R.id.btnReset).setOnClickListener {
+                compareMail(userMail)
+                dialog.dismiss()
+            }
+            view.findViewById<Button>(R.id.btnCancel).setOnClickListener{
+                dialog.dismiss()
+            }
+            if(dialog.window!=null){
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(0))
+            }
+            dialog.show()
         }
 
     }
-    private fun loginUser(mail: String, password: String){
-        dbRef.orderByChild("empMail").equalTo(mail).addListenerForSingleValueEvent(object :ValueEventListener{
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for(userSnapshot in dataSnapshot.children){
-                        val userData = userSnapshot.getValue(EmployeeModel::class.java)
-                        if(userData!=null && userData.empPassword == password){
-                            Toast.makeText(this@LoginActivity, "Login Successful", Toast.LENGTH_SHORT).show()
-                            startActivity(Intent(this@LoginActivity, navbarActivity::class.java))
-                            finish()
-                            return
-                        }
-                    }
+
+    private fun compareMail(Mail: EditText) {
+        if(Mail.text.toString().isEmpty()){
+            return
+        }
+        if(!Patterns.EMAIL_ADDRESS.matcher(Mail.text.toString()).matches()){
+            return
+        }
+        firebaseAuth.sendPasswordResetEmail(Mail.text.toString())
+            .addOnCompleteListener { task ->
+                if(task.isSuccessful){
+                    Toast.makeText(this, "Check your email", Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@LoginActivity, "Database Error: ${databaseError.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+    }
 
+    private fun loginUser(mail: String, password: String){
+        firebaseAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener {
+            if(it.isSuccessful){
+                val intent = Intent(this, navbarActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this@LoginActivity, "Email or password is not valid", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }

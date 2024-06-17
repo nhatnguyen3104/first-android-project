@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.firstandroidproject.R
 import com.example.firstandroidproject.classSuport.EmployeeModel
 import com.example.firstandroidproject.databinding.ActivitySignupBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -21,6 +22,7 @@ class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var dbRef : DatabaseReference
+    private lateinit var firebaseAuth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,12 +44,13 @@ class SignupActivity : AppCompatActivity() {
             finish()
         }
 
-        dbRef = FirebaseDatabase.getInstance().getReference("Users")
+        firebaseAuth = FirebaseAuth.getInstance()
         //sử lý sự kiện khi click vào Sign up
         binding.btnSignUp.setOnClickListener {
             saveUserData()
         }
-        btnLogin.setOnClickListener{
+
+        binding.btnLogin.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -66,9 +69,6 @@ class SignupActivity : AppCompatActivity() {
         val empMail = edt_mail.text.toString()
         val empPassword = edt_password.text.toString()
 
-        //push data
-        val empId = dbRef.push().key!!
-        val User = EmployeeModel(empId, empFirstName, empLastName, empMail, empPassword)
 
         //check if data is empty
         if (empFirstName.isEmpty()) {
@@ -87,17 +87,21 @@ class SignupActivity : AppCompatActivity() {
             edt_password.error = "please enter Password"
             return
         }
-        dbRef.child(empId).setValue(User)
-            .addOnCompleteListener {
-                Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_LONG).show()
-                edt_firstName.text.clear()
-                edt_lastName.text.clear()
-                edt_mail.text.clear()
-                edt_password.text.clear()
-            }
-            .addOnFailureListener { err ->
-                Toast.makeText(this, "Error ${err.message}", Toast.LENGTH_LONG).show()
-            }
-    }
 
+        if(empMail.isNotEmpty()&&empPassword.isNotEmpty()){
+            firebaseAuth.createUserWithEmailAndPassword(empMail, empPassword).addOnCompleteListener {
+                if(it.isSuccessful){
+                    val intent = Intent(this,LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else{
+                    Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        else{
+            Toast.makeText(this, "Empty Fields Are not Allowed !!", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
