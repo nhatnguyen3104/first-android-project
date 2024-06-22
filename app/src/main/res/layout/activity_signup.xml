@@ -31,16 +31,18 @@
             android:layout_marginTop="25dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
             <ImageButton
-                android:layout_width="180dp"
-                android:layout_height="40dp"
+                android:layout_width="140dp"
+                android:layout_height="30dp"
                 android:id="@+id/imbSignUpGG"
                 android:background="@drawable/logingoogle"/>
             <ImageButton
-                android:layout_marginLeft="10dp"
-                android:layout_width="180dp"
-                android:layout_height="40dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="140dp"
+                android:layout_height="30dp"
                 android:id="@+id/imbSignUpFB"
                 android:background="@drawable/signupfb"/>
         </LinearLayout>
@@ -124,23 +126,24 @@
             android:textSize="22dp"/>
         <RelativeLayout
             android:layout_marginTop="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Already have an account?"
-                android:layout_marginTop="13dp"
-                android:gravity="center"/>
-            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btnLogin"
-                android:text="Log in"
+                android:text="Already have an account?"
+                android:layout_marginLeft="50dp"
+                android:gravity="center"/>
+            <TextView
+                android:layout_marginRight="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtLogin"
                 android:textColor="@color/white"
-                android:backgroundTint="#C0C0C0"
-                android:layout_alignParentRight="true"
-                android:textSize="15dp"/>
+                android:text="Log In"
+                android:textSize="15dp"
+                android:layout_alignParentEnd="true"/>
         </RelativeLayout>
     </LinearLayout>
 

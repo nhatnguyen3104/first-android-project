@@ -25,32 +25,25 @@
             android:drawableLeft="@drawable/ic_lock_reset"
             android:drawablePadding="8dp"
             app:layout_constraintTop_toTopOf="parent"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/desc"
-            android:text="Enter your email address"
-            android:textSize="16sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/forgotTitle"
-            app:layout_constraintTop_toTopOf="@id/editBox"/>
+
         <EditText
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editBox"
             android:textColor="@color/orange_200"
-            android:textSize="16sp"
+            android:textSize="16dp"
             android:layout_marginStart="20dp"
             android:backgroundTint="@color/orange_200"
             android:layout_marginBottom="30dp"
             android:maxLines="1"
+            android:hint="Enter your email address..."
+            android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forgotTitle"/>
 
         <Button
+            android:backgroundTint="#00CEC9"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:id="@+id/btnCancel"
@@ -67,6 +60,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnReset"/>
         <Button
+            android:backgroundTint="#00CEC9"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:id="@+id/btnReset"

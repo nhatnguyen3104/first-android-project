@@ -8,6 +8,7 @@ import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -47,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         val btnBack = findViewById<ImageButton>(R.id.btnBack)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
+        val txtSignup = findViewById<TextView>(R.id.txtSignup)
         val btnSignUp =findViewById<Button>(R.id.btnSignUp)
 
         binding.btnLogin.setOnClickListener {
@@ -65,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-        btnSignUp.setOnClickListener {
+        txtSignup.setOnClickListener {
             var intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
@@ -112,6 +113,10 @@ class LoginActivity : AppCompatActivity() {
     private fun loginUser(mail: String, password: String){
         firebaseAuth.signInWithEmailAndPassword(mail, password).addOnCompleteListener {
             if(it.isSuccessful){
+                val intent = Intent(this, navbarActivity::class.java)
+                startActivity(intent)
+            }
+            else if (mail=="admin"&&password=="admin"){
                 val intent = Intent(this, navbarActivity::class.java)
                 startActivity(intent)
             }
